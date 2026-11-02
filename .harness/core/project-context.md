@@ -56,4 +56,4 @@ Customer portal, Pix Automático, prepaid credits, proration, refunds, credit no
 - `./gradlew check` — tests and static checks (per-task gate)
 - `./gradlew build` — full build
 - `docker compose up` — Postgres/TimescaleDB and Grafana LGTM (`./gradlew bootRun` starts it automatically through Spring Boot Docker Compose support)
-- `./gradlew wrapper --gradle-version <x>` — upgrade Gradle (wrapper starts on 8.14.3)
+- `./gradlew wrapper --gradle-version <x>` — upgrade Gradle (wrapper on 9.8.2)
