@@ -100,8 +100,8 @@ Brazilian startups that charge by consumption (API calls, minutes, tokens) end u
 - AC-27 (F-19): Given a confirmed payment with a different amount than the invoice, when reconciled, then the invoice is flagged as divergent and not marked paid.
 - AC-28 (F-20): Given an issued invoice past its due date without payment, when the daily job runs, then it becomes `overdue`.
 - AC-29 (F-21): Given an issued, unpaid invoice, when the operator cancels it, then the charge and the NFS-e are cancelled and the invoice becomes `cancelled`; cancelling a paid invoice returns 409.
-- AC-31 (F-22): Given invoices of a tenant, when they are listed with `limit=2`, then two are returned with a `nextCursor`, and invoices of other tenants never appear.
 - AC-30 (F-23): Given a clean clone with Docker running, when the simulator runs one month for the sample tenant, then it prints, per customer, the invoice lines, the NFS-e number and the charge id, and exits 0.
+- AC-31 (F-22): Given invoices of a tenant, when they are listed with `limit=2`, then two are returned with a `nextCursor`, and invoices of other tenants never appear.
 
 ## 8. Non-functional requirements
 - **Performance:** a 500-event batch acknowledged in < 500 ms p95 on the local stack; cycle close for 1,000 subscriptions in < 60 s `[ASSUMPTION]`.
