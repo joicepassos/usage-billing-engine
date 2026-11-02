@@ -15,7 +15,7 @@
 - Tests: JUnit 5, AssertJ, jqwik, Testcontainers, WireMock, Modulith `ApplicationModules.verify()`
 
 ## Modules
-metering · pricing · invoicing · fiscal · payments · reconciliation (plus a `simulator` CLI for the demo)
+accounts · metering · pricing · invoicing · fiscal · payments · reconciliation, plus an open `shared` module (money, periods, errors, outbox) and a `simulator` CLI subproject for the demo
 
 ## Approved decisions
 | Topic | Decision |

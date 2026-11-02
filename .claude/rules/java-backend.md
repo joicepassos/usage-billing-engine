@@ -6,8 +6,9 @@
 - Adding or upgrading a dependency needs explicit approval.
 
 ## Modules
-- Spring Modulith. Each module (`metering`, `pricing`, `invoicing`, `fiscal`, `payments`, `reconciliation`) exposes only its top-level package; everything else lives in `internal`.
+- Spring Modulith. Each module (`accounts`, `metering`, `pricing`, `invoicing`, `fiscal`, `payments`, `reconciliation`) exposes only its top-level package; everything else lives in `internal`.
 - Modules talk through application events or the published API of another module. No reaching into another module's `internal` package or repositories.
+- `shared` is an open module (`Type.OPEN`) for money, periods, error handling and the outbox; keep it small and free of business rules.
 - `ApplicationModules.of(...).verify()` must pass.
 
 ## Money and time

@@ -1,5 +1,5 @@
 # Implementation plan — usage-billing-engine MVP
-Source: docs/PRD.md v1.0 · Status: draft · Date: 2026-11-02
+Source: docs/PRD.md v1.1 · Status: approved · Date: 2026-11-02
 
 ## Overview
 Foundations first (a green build, recorded decisions, shared value objects, tenancy), then a spike on the two external contracts because they carry the most uncertainty. After that the plan follows the money: usage in, pricing, cycle close, invoice, NFS-e, charge, payment. The simulator and observability close the loop for the portfolio demo.
@@ -221,7 +221,7 @@ Every task ends with `./gradlew check` and a self-review with `code-review`.
 
 ### T-21 — Invoice and fiscal document queries · Size: S · Role: backend-engineer
 - **Goal:** list and get endpoints with cursor pagination, tenant-scoped.
-- **Covers:** F-22 (see pending decisions), AC-03
+- **Covers:** AC-31, AC-03
 - **Module:** `invoicing`, `fiscal`
 - **Likely files:** controllers in both modules (edit)
 - **Depends on:** T-15
@@ -279,12 +279,16 @@ Every task ends with `./gradlew check` and a self-review with `code-review`.
 | AC-28 | T-19 |
 | AC-29 | T-20 |
 | AC-30 | T-22 |
+| AC-31 | T-21 |
 
-## Cross-cutting risks and pending decisions
-- **New module `accounts`:** tenants, API keys, operator key and customers need an owner. Proposed: an `accounts` module, recorded in ADR 0001. Needs approval.
-- **Shared module:** `Money`, `BillingPeriod`, error handling and the outbox live in an open `shared` module. Needs approval.
-- **F-22 has no acceptance criterion:** proposed AC: "Given invoices of a tenant, when listed with `limit=2`, then two are returned with a `nextCursor`, and other tenants' invoices never appear." To be added to the PRD as AC-31.
-- **New dependencies (approval needed when the task starts):** Spring Security (T-05), Testcontainers modules (T-03), Resilience4j and WireMock (T-14).
+## Decisions taken at approval
+- **`accounts` module:** owns tenants, API keys, the operator key and customers.
+- **`shared` module:** open module for `Money`, `BillingPeriod`, error handling and the outbox.
+- **F-22:** covered by the new AC-31 in PRD v1.1.
+- **Dependencies:** Spring Security, Testcontainers modules, Resilience4j and WireMock approved up front for the tasks that need them.
+
+## Cross-cutting risks
 - **Asaas sandbox account** for T-04 and T-17: created by the owner; credentials only in a local `.env`.
 - **Close vs. continuous aggregate lag:** decide in T-08/T-11 whether the close reads raw events.
 - **Recovery for high-risk tasks:** every migration is forward-only; a bad release is fixed by a new migration, never by editing an applied one.
+- **Build verification in the cloud session:** needs the Maven, Gradle, toolchain and Docker registry domains allowed; until then CI is the only place the build runs.
