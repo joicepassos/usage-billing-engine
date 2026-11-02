@@ -28,3 +28,6 @@ out/
 
 # Local Claude settings
 .claude/settings.local.json
+
+# Test tooling
+.jqwik-database
