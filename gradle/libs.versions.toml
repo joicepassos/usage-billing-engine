@@ -1,0 +1,13 @@
+[versions]
+spring-boot = "4.1.2"
+spring-modulith = "2.1.1"
+springdoc = "3.1.0"
+jqwik = "1.9.3"
+
+[libraries]
+spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version.ref = "spring-modulith" }
+springdoc-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+jqwik = { module = "net.jqwik:jqwik", version.ref = "jqwik" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: timescale/timescaledb:2.17.2-pg17
+    environment:
+      POSTGRES_DB: billing
+      POSTGRES_USER: billing
+      POSTGRES_PASSWORD: billing
+    ports:
+      - "5432:5432"
+    labels:
+      org.springframework.boot.service-connection: postgres
+
+  observability:
+    image: grafana/otel-lgtm:0.8.1
+    ports:
+      - "3000:3000"
+      - "4317:4317"
+      - "4318:4318"

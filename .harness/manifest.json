@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0",
+  "id": "harness-pro",
+  "name": "Harness PRO",
+  "edition": "java-gradle",
+  "version": "1.1.0",
+  "language": "en",
+  "tools": ["claude", "codex", "cursor"],
+  "agents": ["orchestrator", "product-manager", "architect", "backend-engineer", "qa-engineer", "code-reviewer"],
+  "skills": ["idea-to-prd", "task-breakdown", "api-design", "test-generation", "security-audit", "release-readiness", "debugging", "code-review"],
+  "rules": ["global", "security", "java-backend", "language"],
+  "scripts": ["project-analyzer", "quality-check"],
+  "workflows": ["new-project", "new-feature", "fix-bug"]
+}

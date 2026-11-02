@@ -1,0 +1,16 @@
+version: 1
+principles:
+  - preserve_existing_behavior
+  - minimal_changes
+  - evidence_before_claims
+  - least_privilege
+  - human_approval_for_destructive_actions
+quality:
+  require_review: true
+  report_not_run: true
+  enforce_module_boundaries: true
+  money_is_bigdecimal: true
+  avoid_unnecessary_dependencies: true
+gates:
+  per_task: "./gradlew check"
+  release: "./gradlew build"
