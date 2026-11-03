@@ -26,6 +26,7 @@ spring:
 
 billing:
   zone: America/Sao_Paulo
+  grace-window: 1h
 
 management:
   endpoints:

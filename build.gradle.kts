@@ -42,6 +42,9 @@ dependencies {
     testImplementation(platform(SpringBootPlugin.BOM_COORDINATES))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.modulith:spring-modulith-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation(libs.testcontainers.postgresql)
+    testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(libs.jqwik)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
