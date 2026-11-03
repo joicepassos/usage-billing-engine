@@ -21,3 +21,8 @@ Tenants send usage events over HTTP and retry on timeouts. Some events arrive la
 
 ## How to revert
 Put a queue in front of the same insert path; the idempotency constraint stays.
+
+## Amendment 1 — 2026-11-03: idempotency ledger, period at ingestion, batch response
+- **Idempotency ledger.** TimescaleDB requires unique indexes on a hypertable to include the partitioning column (`occurred_at`), so `(tenant_id, transaction_id)` cannot be unique on `usage_event`. A regular table, `ingested_transaction`, with that primary key records every accepted event (payload hash, assigned period) and is written in the same transaction as the event. `INSERT ... ON CONFLICT DO NOTHING` on it decides whether an event is new.
+- **Billing period assigned at ingestion.** Starting from the period that contains `occurred_at`, the event moves to the next period while its arrival time is past that period's grace end. The result is stored in `usage_event.billing_period` and never recomputed. Events more than 5 minutes in the future are rejected.
+- **Batch response.** Schema errors (malformed JSON, missing fields, more than 500 events) reject the whole batch with 422. Business outcomes are reported per event: `accepted`, `duplicate` (same payload, original result returned), `conflict` (same transaction id, different payload, status 409) or `rejected` (unknown metric, missing `unique_key` for a unique metric, future timestamp, status 422). The response is 202 when at least one event was accepted and 200 when none was.

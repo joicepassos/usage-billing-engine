@@ -19,3 +19,6 @@ Option 3. A continuous aggregate keeps daily usage per tenant, customer and metr
 
 ## How to revert
 Drop the continuous aggregate and query raw events; the close already supports it.
+
+## Amendment 1 — 2026-11-03: the close reads raw events
+The cycle close sums raw `usage_event` rows filtered by `billing_period`, which is assigned at ingestion (ADR 0003, amendment 1). The continuous aggregate serves only the current-period usage query. `unique` metrics are always computed from raw events, because continuous aggregates cannot count distinct values.

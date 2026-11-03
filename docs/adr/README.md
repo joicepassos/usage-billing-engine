@@ -12,4 +12,6 @@
 | [0008](0008-tenancy-and-authentication.md) | Tenancy and API key authentication | accepted |
 | [0009](0009-tier-boundaries.md) | Tier boundary convention | accepted |
 
+Amendments are appended to the ADR they change. See also [`docs/data-model.md`](../data-model.md).
+
 New decisions use the template in `.claude/agents/architect.md`. Superseded ADRs stay in place with their status updated.

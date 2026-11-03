@@ -80,7 +80,7 @@ Every task ends with `./gradlew check` and a self-review with `code-review`.
 - **Risks:** LGPD. Recovery: masking tested in the same task.
 
 ### T-07 — Batch event ingestion · Size: M · Role: backend-engineer
-- **Goal:** billable metrics API, `POST /v1/events` (≤ 500 per batch) into a hypertable, idempotency by `(tenant, transaction_id)` with payload hash.
+- **Goal:** billable metrics API, `POST /v1/events` (≤ 500 per batch) into a hypertable, idempotency through the `ingested_transaction` ledger, billing period assigned at ingestion (ADR 0003, amendment 1).
 - **Covers:** AC-10, AC-11, AC-12
 - **Module:** `metering`
 - **Likely files:** `.../metering/**` (create), `db/migration/V4__metering.sql` (create)
@@ -90,7 +90,7 @@ Every task ends with `./gradlew check` and a self-review with `code-review`.
 - **Risks:** idempotency under concurrency. Recovery: unique constraint is the source of truth.
 
 ### T-08 — Usage aggregation and late events · Size: M · Role: backend-engineer
-- **Goal:** continuous aggregate per customer/metric/day, current-period usage query, period assignment rule for late events (grace window, rollover with original timestamp).
+- **Goal:** continuous aggregate per customer/metric/day and the current-period usage query; end-to-end tests of late events through the close-facing usage API (the assignment rule itself ships in T-07).
 - **Covers:** AC-13, AC-14, AC-16
 - **Module:** `metering`
 - **Likely files:** `.../metering/**` (edit), `db/migration/V5__usage_aggregate.sql` (create)
@@ -289,6 +289,6 @@ Every task ends with `./gradlew check` and a self-review with `code-review`.
 
 ## Cross-cutting risks
 - **Asaas sandbox account** for T-04 and T-17: created by the owner; credentials only in a local `.env`.
-- **Close vs. continuous aggregate lag:** decide in T-08/T-11 whether the close reads raw events.
+- **Close vs. continuous aggregate lag:** settled, the close reads raw events by `billing_period` (ADR 0004, amendment 1).
 - **Recovery for high-risk tasks:** every migration is forward-only; a bad release is fixed by a new migration, never by editing an applied one.
 - **Build verification in the cloud session:** needs the Maven, Gradle, toolchain and Docker registry domains allowed; until then CI is the only place the build runs.

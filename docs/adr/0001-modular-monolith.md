@@ -19,3 +19,6 @@ Option 3. Modules: `accounts`, `metering`, `pricing`, `invoicing`, `fiscal`, `pa
 
 ## How to revert
 Extract a module into its own service by replacing in-process events with a broker and its published API with HTTP. Each extraction gets its own ADR.
+
+## Amendment 1 — 2026-11-03: data ownership across modules
+Tables reference rows of other modules by id only, without foreign keys. Foreign keys are used inside a module. Cross-module consistency comes from domain events and published module APIs. This keeps module boundaries in the schema and allows extracting a module with its tables. See `docs/data-model.md`.
