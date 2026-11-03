@@ -13,8 +13,11 @@ Names in code follow this file. Update it whenever a new domain term appears.
 | **Plan** | A set of charges a customer subscribes to. |
 | **Charge** | A billable metric plus a pricing model inside a plan. |
 | **Pricing model** | How usage becomes an amount: per unit, graduated tiers, package, monthly minimum. |
+| **Tier** | A range of a graduated charge, defined by an inclusive `up_to` quantity; it covers `(previous up_to, up_to]`. The last tier has no `up_to`. See ADR 0009. |
+| **Package** | A price for each block of N units; the quantity is rounded up to whole blocks. |
+| **Monthly minimum** | Lowest amount billed for a subscription in a period; the difference appears as a minimum-adjustment line. |
 | **Subscription** | A customer on a plan, billed per calendar month. Plan changes apply from the next period. |
-| **Billing period** | A calendar month in `America/Sao_Paulo`. |
+| **Billing period** | A calendar month in `America/Sao_Paulo`: start inclusive at local midnight on day 1, end exclusive at local midnight on day 1 of the next month. |
 | **Cycle close** | The job that ends a billing period and drafts invoices from aggregated usage. |
 | **Invoice** | Amount owed by a customer for a billing period. States: `draft`, `on_hold`, `finalized`, `fiscal_rejected`, `issued`, `paid`, `overdue`, `cancelled`. |
 | **Invoice line** | One charge's amount on an invoice; the only place rounding happens. |

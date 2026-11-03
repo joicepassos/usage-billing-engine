@@ -71,7 +71,7 @@ Brazilian startups that charge by consumption (API calls, minutes, tokens) end u
 - AC-02 (F-01): Given a request without a valid API key, when any `/v1` endpoint is called, then the response is 401 in Problem Details format.
 - AC-03 (F-01): Given tenants A and B, when A requests a resource id owned by B, then the response is 404.
 - AC-04 (F-02): Given a customer without a valid CPF/CNPJ or address, when it is created, then the response is 422 listing the invalid fields.
-- AC-05 (F-04): Given a graduated charge with tiers 0–1,000 at R$ 0.010, 1,001–10,000 at R$ 0.008 and above at R$ 0.005, when 12,500 units are billed, then the line amount is R$ 94.50. `[TO CONFIRM tier boundary convention]`
+- AC-05 (F-04): Given a graduated charge with tiers 0–1,000 at R$ 0.010, 1,001–10,000 at R$ 0.008 and above at R$ 0.005, when 12,500 units are billed, then the line amount is R$ 94.50.
 - AC-06 (F-04): Given a package charge of R$ 25.00 per 1,000 units, when 2,001 units are billed, then the line amount is R$ 75.00.
 - AC-07 (F-04): Given a monthly minimum of R$ 100.00, when usage amounts to R$ 60.00, then the invoice includes a minimum-adjustment line of R$ 40.00.
 - AC-08 (F-04): For any generated usage and tier set, the invoice total equals the sum of its lines, and each line is rounded once with HALF_EVEN to 2 decimals.
@@ -124,5 +124,5 @@ Brazilian startups that charge by consumption (API calls, minutes, tokens) end u
 | National NFS-e API details (DPS layout, error codes) differ from the simulator | Real adapter needs rework | Model the simulator on published documentation; keep the real adapter as Could · architect |
 | Asaas sandbox behavior and webhook authentication | Reconciliation tests may not match reality | Contract tests against recorded sandbox responses · backend-engineer |
 | Continuous aggregate refresh lag at period close | Close may miss recent events | Close reads raw events for the closing period or forces a refresh · architect |
-| Tier boundary convention (inclusive/exclusive) | Wrong amounts | Decide and document in `CONTEXT.md` before pricing work · product-manager |
+| Tier boundary convention (inclusive/exclusive) | Wrong amounts | Settled in ADR 0009 (inclusive `up_to`) |
 | Fiscal data retention period | LGPD and fiscal compliance | Confirm with a reference before implementing deletion · owner |
