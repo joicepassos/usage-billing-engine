@@ -45,6 +45,24 @@ public class ProblemDetailsAdvice extends ResponseEntityExceptionHandler {
         return createResponseEntity(problem, headers, HttpStatus.UNPROCESSABLE_CONTENT, request);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    ResponseEntity<Object> handleNotFound(ResourceNotFoundException ex, WebRequest request) {
+        return problem(HttpStatus.NOT_FOUND, "not-found", "Not found", ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    ResponseEntity<Object> handleConflict(ConflictException ex, WebRequest request) {
+        return problem(HttpStatus.CONFLICT, "conflict", "Conflict", ex.getMessage(), request);
+    }
+
+    private ResponseEntity<Object> problem(HttpStatus status, String type, String title, String detail,
+            WebRequest request) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, detail);
+        problem.setType(URI.create(TYPE_BASE + type));
+        problem.setTitle(title);
+        return createResponseEntity(problem, new HttpHeaders(), status, request);
+    }
+
     @ExceptionHandler(Exception.class)
     ResponseEntity<Object> handleUnexpected(Exception ex, WebRequest request) {
         log.error("Unexpected error", ex);
